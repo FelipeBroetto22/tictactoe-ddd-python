@@ -3,6 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Dependencies](https://img.shields.io/badge/dependencies-none-green)
 ![Tests](https://img.shields.io/badge/tests-unittest-informational)
+![License](https://img.shields.io/badge/license-MIT-yellow)
 
 A command-line Tic-Tac-Toe game built to practice **Domain-Driven Design (DDD)** and **Clean Architecture**. The game is intentionally simple. The goal is to show how to keep the game rules independent from the user interface and from storage.
 
@@ -98,3 +99,7 @@ An invalid move raises a domain exception before any state changes, so the turn 
 
 - [docs/ddd.md](docs/ddd.md): the DDD concepts used and why the rules live in `Match`.
 - [docs/clean_architecture.md](docs/clean_architecture.md): the layers, the dependency direction and the path of a move from the terminal to the board.
+
+## License
+
+Released under the [MIT License](LICENSE).
