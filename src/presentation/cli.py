@@ -1,43 +1,43 @@
-from src.domain.exceptions import ErroDeDominio
-from src.domain.value_objects import Posicao, StatusPartida
+from src.domain.exceptions import DomainError
+from src.domain.value_objects import MatchStatus, Position
 
 
-class InterfaceTerminal:
-    def __init__(self, iniciar_partida, fazer_jogada):
-        self.iniciar_partida = iniciar_partida
-        self.fazer_jogada = fazer_jogada
+class TerminalInterface:
+    def __init__(self, start_match, make_move):
+        self.start_match = start_match
+        self.make_move = make_move
 
-    def jogar(self):
-        partida = self.iniciar_partida.executar()
-        print("Jogo da Velha")
-        print("Digite linha e coluna de 1 a 3.")
+    def play(self):
+        match = self.start_match.execute()
+        print("Tic-Tac-Toe")
+        print("Enter row and column from 1 to 3.")
 
-        while partida.status == StatusPartida.EM_ANDAMENTO:
-            self.mostrar_tabuleiro(partida)
-            print(f"Vez do jogador {partida.jogador_atual.value}")
+        while match.status == MatchStatus.IN_PROGRESS:
+            self.show_board(match)
+            print(f"Player {match.current_player.value}'s turn")
             try:
-                linha = int(input("Linha: ")) - 1
-                coluna = int(input("Coluna: ")) - 1
-                partida = self.fazer_jogada.executar(linha, coluna)
+                row = int(input("Row: ")) - 1
+                column = int(input("Column: ")) - 1
+                match = self.make_move.execute(row, column)
             except ValueError:
-                print("Digite apenas números.")
-            except ErroDeDominio as erro:
-                print(erro)
+                print("Enter numbers only.")
+            except DomainError as error:
+                print(error)
 
-        self.mostrar_tabuleiro(partida)
-        if partida.status == StatusPartida.VENCIDA:
-            print(f"O jogador {partida.vencedor.value} venceu!")
+        self.show_board(match)
+        if match.status == MatchStatus.WON:
+            print(f"Player {match.winner.value} wins!")
         else:
-            print("Deu velha, ninguém ganhou.")
+            print("It's a draw.")
 
-    def mostrar_tabuleiro(self, partida):
+    def show_board(self, match):
         print()
-        for linha in range(3):
-            casas = []
-            for coluna in range(3):
-                simbolo = partida.tabuleiro.simbolo_em(Posicao(linha, coluna))
-                casas.append(simbolo.value if simbolo else " ")
-            print(" " + " | ".join(casas))
-            if linha < 2:
+        for row in range(3):
+            cells = []
+            for column in range(3):
+                symbol = match.board.symbol_at(Position(row, column))
+                cells.append(symbol.value if symbol else " ")
+            print(" " + " | ".join(cells))
+            if row < 2:
                 print("---+---+---")
         print()

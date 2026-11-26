@@ -1,22 +1,22 @@
-class ErroDeDominio(Exception):
+class DomainError(Exception):
     pass
 
 
-class PosicaoInvalida(ErroDeDominio):
+class InvalidPosition(DomainError):
     def __init__(self):
-        super().__init__("Essa posição está fora do tabuleiro.")
+        super().__init__("That position is outside the board.")
 
 
-class PosicaoOcupada(ErroDeDominio):
+class PositionOccupied(DomainError):
     def __init__(self):
-        super().__init__("Essa posição já está ocupada.")
+        super().__init__("That position is already occupied.")
 
 
-class PartidaEncerrada(ErroDeDominio):
+class MatchFinished(DomainError):
     def __init__(self):
-        super().__init__("A partida já terminou.")
+        super().__init__("The match is already over.")
 
 
-class PartidaNaoEncontrada(ErroDeDominio):
+class MatchNotFound(DomainError):
     def __init__(self):
-        super().__init__("Não existe partida em andamento.")
+        super().__init__("There is no match in progress.")

@@ -1,13 +1,13 @@
-from src.application.fazer_jogada import FazerJogada
-from src.application.iniciar_partida import IniciarPartida
-from src.infrastructure.memoria_repository import MemoriaRepository
-from src.presentation.cli import InterfaceTerminal
+from src.application.make_move import MakeMove
+from src.application.start_match import StartMatch
+from src.infrastructure.in_memory_repository import InMemoryRepository
+from src.presentation.cli import TerminalInterface
 
 
 def main():
-    repositorio = MemoriaRepository()
-    interface = InterfaceTerminal(IniciarPartida(repositorio), FazerJogada(repositorio))
-    interface.jogar()
+    repository = InMemoryRepository()
+    interface = TerminalInterface(StartMatch(repository), MakeMove(repository))
+    interface.play()
 
 
 if __name__ == "__main__":

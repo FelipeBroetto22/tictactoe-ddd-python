@@ -6,8 +6,6 @@
 
 A command-line Tic-Tac-Toe game built to practice **Domain-Driven Design (DDD)** and **Clean Architecture**. The game is intentionally simple. The goal is to show how to keep the game rules independent from the user interface and from storage.
 
-Class and method names are in Portuguese on purpose. They are the project's ubiquitous language (see the glossary below).
-
 ## Getting started
 
 Requires Python 3.10 or newer. There are no external dependencies.
@@ -50,10 +48,10 @@ The domain has no `print()`, no `input()` and no knowledge of where the match is
 
 | Layer | Folder | Contents |
 |-------|--------|----------|
-| Domain | `src/domain` | `Partida`, `Tabuleiro`, `Posicao`, `Simbolo`, domain exceptions, repository interface |
-| Application | `src/application` | `IniciarPartida` and `FazerJogada` use cases |
-| Infrastructure | `src/infrastructure` | `MemoriaRepository`, an in-memory repository |
-| Presentation | `src/presentation` | `InterfaceTerminal`, the terminal UI |
+| Domain | `src/domain` | `Match`, `Board`, `Position`, `Symbol`, domain exceptions, repository interface |
+| Application | `src/application` | `StartMatch` and `MakeMove` use cases |
+| Infrastructure | `src/infrastructure` | `InMemoryRepository`, an in-memory repository |
+| Presentation | `src/presentation` | `TerminalInterface`, the terminal UI |
 
 `main.py` creates the repository, the use cases and the terminal UI, and connects them.
 
@@ -61,13 +59,13 @@ The domain has no `print()`, no `input()` and no knowledge of where the match is
 
 | Term | Meaning |
 |------|---------|
-| `Partida` | A match, from start to finish. It is the main entity. |
-| `Tabuleiro` | The 3x3 board. |
-| `Posicao` | A cell (row and column, from 0 to 2). Value object. |
-| `Simbolo` | `X` or `O`. |
-| `StatusPartida` | `EM_ANDAMENTO` (in progress), `VENCIDA` (won) or `EMPATADA` (draw). |
-| `fazer_jogada` | Make a move. |
-| `verificar_vencedor` | Check for a winner. |
+| `Match` | One game, from start to finish. It is the main entity. |
+| `Board` | The 3x3 grid. |
+| `Position` | A cell (row and column, from 0 to 2). Value object. |
+| `Symbol` | `X` or `O`. |
+| `MatchStatus` | `IN_PROGRESS`, `WON` or `DRAW`. |
+| `make_move` | A player marks a position with their symbol. |
+| `find_winner` | Checks whether a symbol completed a line. |
 
 ## Game rules handled
 
@@ -86,17 +84,17 @@ An invalid move raises a domain exception before any state changes, so the turn 
 ├── main.py
 ├── docs/
 │   ├── ddd.md
-│   └── arquitetura_limpa.md
+│   └── clean_architecture.md
 ├── src/
 │   ├── domain/
 │   ├── application/
 │   ├── infrastructure/
 │   └── presentation/
 └── tests/
-    └── test_partida.py
+    └── test_match.py
 ```
 
 ## Documentation
 
-- [docs/ddd.md](docs/ddd.md): the DDD concepts used and why the rules live in `Partida`.
-- [docs/arquitetura_limpa.md](docs/arquitetura_limpa.md): the layers, the dependency direction and the path of a move from the terminal to the board.
+- [docs/ddd.md](docs/ddd.md): the DDD concepts used and why the rules live in `Match`.
+- [docs/clean_architecture.md](docs/clean_architecture.md): the layers, the dependency direction and the path of a move from the terminal to the board.

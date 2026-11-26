@@ -1,28 +1,28 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from src.domain.exceptions import PosicaoInvalida
+from src.domain.exceptions import InvalidPosition
 
 
-class Simbolo(Enum):
+class Symbol(Enum):
     X = "X"
     O = "O"
 
-    def outro(self):
-        return Simbolo.O if self == Simbolo.X else Simbolo.X
+    def opponent(self):
+        return Symbol.O if self == Symbol.X else Symbol.X
 
 
-class StatusPartida(Enum):
-    EM_ANDAMENTO = "em andamento"
-    VENCIDA = "vencida"
-    EMPATADA = "empatada"
+class MatchStatus(Enum):
+    IN_PROGRESS = "in progress"
+    WON = "won"
+    DRAW = "draw"
 
 
 @dataclass(frozen=True)
-class Posicao:
-    linha: int
-    coluna: int
+class Position:
+    row: int
+    column: int
 
     def __post_init__(self):
-        if not (0 <= self.linha <= 2 and 0 <= self.coluna <= 2):
-            raise PosicaoInvalida()
+        if not (0 <= self.row <= 2 and 0 <= self.column <= 2):
+            raise InvalidPosition()

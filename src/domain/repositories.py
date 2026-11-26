@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 
 
-class PartidaRepository(ABC):
+class MatchRepository(ABC):
     @abstractmethod
-    def salvar(self, partida):
+    def save(self, match):
         pass
 
     @abstractmethod
-    def buscar(self):
+    def find(self):
         pass
